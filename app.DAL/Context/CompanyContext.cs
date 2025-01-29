@@ -17,5 +17,7 @@ namespace app.DAL.Context
         public CompanyContext(DbContextOptions<CompanyContext> options ): base(options) { }
         
         public DbSet <Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+
     }
 }

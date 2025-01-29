@@ -1,0 +1,40 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Details of @Model.Name Department </h1>
+
+
+<div class="mb-3">
+    <label asp-for="Name" class="form-label"></label>
+    <input asp-for="Name" class="form-control" readonly>
+
+</div>
+<div class="mb-3">
+    <label asp-for="Age" class="form-label"> </label>
+    <input asp-for="Age" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <label asp-for="Adress" class="form-label">  </label>
+    <input asp-for="Adress" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <label asp-for="Email" class="form-label">  </label>
+    <input asp-for="Email" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <label asp-for="Salary" class="form-label">  </label>
+    <input asp-for="Salary" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <label asp-for="PhoneNumbers" class="form-label">  </label>
+    <input asp-for="PhoneNumbers" class="form-control" readonly>
+</div>
+<div class="mb-3">
+    <label asp-for="HirDate" class="form-label">  </label>
+    <input asp-for="HirDate" class="form-control" readonly>
+</div>
+<a asp-controller="Employee" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success"> Edit </a>|
+<a asp-action="Index" class="btn btn-light"> back to list </a>
+

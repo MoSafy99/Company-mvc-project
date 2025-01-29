@@ -16,6 +16,7 @@ namespace app.Pl
 			builder.Services.AddDbContext<CompanyContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
 			builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
+			builder.Services.AddScoped<IEmployeeReopsitory,EmployeeReopsitory>();
 
 			var app = builder.Build();
 
