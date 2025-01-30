@@ -28,20 +28,8 @@
                     <td>@Department.Code</td>
                     <td>@Department.Name</td>
                     <td>@Department.DateOfCreation</td>
-                    <td><a asp-controller="Department" asp-action="Details" asp-route-id="@Department.Id">
-                        <i class="fas fa-eye"></i>
-                        </a>
-                     </td>
-                    <td>
-                        <a asp-controller="Department" asp-action="Edit" asp-route-id="@Department.Id">
-                            <i class="fa-solid fa-edit"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-controller="Department" asp-action="Delete" asp-route-id="@Department.Id">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
+                    <partial name="_ButtonsPartialView" model="@Department.Id" />
+
                 </tr>
             }
         </tbody>

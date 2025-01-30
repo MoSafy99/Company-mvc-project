@@ -6,51 +6,13 @@
 <h1>Create New Employee </h1>
 
 <form asp-action="Create">
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" placeholder="Enter your Name ">
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Age " class="form-label"> </label>
-        <input asp-for="Age " class="form-control" placeholder="Enter Age ">
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Adress" class="form-label">  </label>
-        <input asp-for="Adress" class="form-control" placeholder="Enter Adress">
-        <span asp-validation-for="Adress" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Email" class="form-label">  </label>
-        <input asp-for="Email" class="form-control" placeholder="Enter Email">
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="PhoneNumbers" class="form-label">  </label>
-        <input asp-for="PhoneNumbers" class="form-control" placeholder="Enter PhoneNumbers">
-        <span asp-validation-for="PhoneNumbers" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Salary" class="form-label">  </label>
-        <input asp-for="Salary" class="form-control" placeholder="Enter Salary">
-        <span asp-validation-for="Salary" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="IsActive" class="form-label">  </label>
-        <input type="checkbox" />
-    </div>
-    <div class="mb-3">
-        <label asp-for="HirDate" class="form-label">  </label>
-        <input asp-for="HirDate" class="form-control" placeholder="Enter HirDate">
-        <span asp-validation-for="HirDate" class="text-danger"></span>
-    </div>
-    <input type="submit" class="btn btn-primary" value="submit" />
+
+    <partial name="EmployeePartialView/CreateEditPartialView" />
+        <input type="submit" class="btn btn-primary" value="submit" />
     <a asp-action="Index" class="btn btn-light"> back to list </a>
 </form>
 @section ValidationScriptSection {
-	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
 
-    <script src="e:\mvc project\mvc project\app.pl\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js"></script>
 }
 

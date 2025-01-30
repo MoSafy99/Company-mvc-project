@@ -17,6 +17,6 @@ namespace app.DAL.model
 		public string Code { get; set; }	
 		public DateTime DateOfCreation { get; set; }
 
-
+		public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
     }
 }

@@ -8,21 +8,7 @@
 
 
 <form asp-action="Delete">
-    <div class="mb-3">
-        <label asp-for="Code" class="form-label"></label>
-        <input asp-for="Code" class="form-control" placeholder="Enter Code" readonly>
-        <span asp-validation-for="Code" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label"> </label>
-        <input asp-for="Name" class="form-control" placeholder="Enter Name" readonly>
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <label asp-for="DateOfCreation" class="form-label">  </label>
-        <input asp-for="DateOfCreation" class="form-control" placeholder="Enter DateOfCreation" readonly>
-        <span asp-validation-for="DateOfCreation" class="text-danger"></span>
-    </div>
+    <partial name="DepartmentPartialView/DeleteDetailsParialView" />
     <input type="submit" class="btn btn-danger" value="Delete" />
     <a asp-action="Index" class="btn btn-light"> cancel </a>
 </form>

@@ -8,10 +8,12 @@ namespace app.Pl.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeReopsitory _employeeReopsitory;
-        public EmployeeController(IEmployeeReopsitory employeeReopsitory)
+        private readonly IDepartmentRepository _departmentRepository;
+
+        public EmployeeController(IEmployeeReopsitory employeeReopsitory ,IDepartmentRepository departmentRepository)
         {
             _employeeReopsitory = employeeReopsitory;
-            
+            _departmentRepository = departmentRepository;
         }
         public IActionResult Index()
         {
@@ -21,6 +23,7 @@ namespace app.Pl.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+          ViewBag.Departments= _departmentRepository.GetAll();
             return View();
 
         }
@@ -53,7 +56,9 @@ namespace app.Pl.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            
+            ViewBag.Departments = _departmentRepository.GetAll();
+
+
             return Details(id, "Edit");
         }
         [HttpPost]

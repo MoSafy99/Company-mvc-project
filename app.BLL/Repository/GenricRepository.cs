@@ -1,5 +1,7 @@
 ﻿using app.BLL.Interface;
 using app.DAL.Context;
+using app.DAL.model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +33,14 @@ namespace app.BLL.Repository
         public T Get(int id)
        => _context.Set<T>().Find(id);
         public IEnumerable<T> GetAll()
-        =>_context.Set<T>().ToList();
+        {
+            if (typeof(T) == typeof(Employee))
+            {
+                return (IEnumerable<T>) _context.Employees.Include(E => E.Department).ToList();
+            }else
+              return _context.Set<T>().ToList();
+        }
+        
 
         public int Update(T item)
         {
