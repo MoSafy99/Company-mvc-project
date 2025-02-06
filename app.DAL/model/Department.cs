@@ -10,9 +10,9 @@ namespace app.DAL.model
 	public class Department
 	{
         public int Id { get; set; }
-		[Required (ErrorMessage ="Name is requird ")]
+		[Required]
 		public string Name { get; set; }
-		[Required(ErrorMessage = "Code is requird ")]
+		[Required]
 
 		public string Code { get; set; }	
 		public DateTime DateOfCreation { get; set; }

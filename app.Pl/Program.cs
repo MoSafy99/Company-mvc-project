@@ -1,6 +1,7 @@
 using app.BLL.Interface;
 using app.BLL.Repository;
 using app.DAL.Context;
+using app.Pl.MapperProfile;
 using Microsoft.EntityFrameworkCore;
 
 namespace app.Pl
@@ -17,8 +18,14 @@ namespace app.Pl
 			options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection")));
 			builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
 			builder.Services.AddScoped<IEmployeeReopsitory,EmployeeReopsitory>();
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile(new EmployeeProfile());
+                cfg.AddProfile(new DepartmentProfile());
+            });
 
-			var app = builder.Build();
+
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
