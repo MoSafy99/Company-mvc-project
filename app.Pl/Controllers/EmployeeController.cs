@@ -20,12 +20,21 @@ namespace app.Pl.Controllers
             _departmentRepository = departmentRepository;
            _mapper = mapper;
         }
-        public IActionResult Index()
+        public IActionResult Index(string SearchName)
         {
-            var employess = _employeeReopsitory.GetAll();
-            var MapedEmp = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(employess);
+            IEnumerable<Employee> employess;
+            if (string.IsNullOrEmpty(SearchName)) 
+            {
+                 employess = _employeeReopsitory.GetAll();
+                
+            }
+            else
+            {
+               employess=  _employeeReopsitory.GetEmpolyeeByName(SearchName);
+            }
 
-            return View(MapedEmp);
+                var MapedEmp = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(employess);
+                return View(MapedEmp);
         }
         [HttpGet]
         public IActionResult Create()

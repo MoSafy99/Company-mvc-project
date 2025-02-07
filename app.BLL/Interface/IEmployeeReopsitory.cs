@@ -10,6 +10,8 @@ namespace app.BLL.Interface
     public interface IEmployeeReopsitory : IGenricRepository<Employee>
     {
         IQueryable<Employee> GetEmpolyeeByAdress(string address);
-        
+        IQueryable<Employee> GetEmpolyeeByName (string name);
+
+
     }
 }
