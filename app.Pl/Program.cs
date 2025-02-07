@@ -23,6 +23,7 @@ namespace app.Pl
                 cfg.AddProfile(new EmployeeProfile());
                 cfg.AddProfile(new DepartmentProfile());
             });
+			builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 
             var app = builder.Build();

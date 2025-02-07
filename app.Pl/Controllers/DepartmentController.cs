@@ -8,17 +8,19 @@ namespace app.Pl.Controllers
 {
 	public class DepartmentController : Controller
 	{
-		private readonly IDepartmentRepository _departmentRepository;
+        //private readonly IDepartmentRepository _departmentRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DepartmentController(IDepartmentRepository departmentRepository,IMapper mapper )
+        public DepartmentController(IUnitOfWork unitOfWork,IMapper mapper )
         {
-			_departmentRepository = departmentRepository;
+			//_departmentRepository = departmentRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         public IActionResult Index()
 		{
-			var Departments = _departmentRepository.GetAll();
+			var Departments = _unitOfWork.departmentRepository.GetAll();
 			var MapedDepartment = _mapper.Map<IEnumerable<Department>, IEnumerable<DepartmentViewModel>>(Departments);
 			return View(MapedDepartment);
 		}
@@ -35,7 +37,8 @@ namespace app.Pl.Controllers
 			{
 				var MapedDepartment = _mapper.Map<DepartmentViewModel, Department>(departmentVM);	
 
-                _departmentRepository.Add(MapedDepartment);
+                _unitOfWork.departmentRepository.Add(MapedDepartment);
+				_unitOfWork.Complete();
 				return RedirectToAction(nameof(Index));
 			}
             return View(departmentVM);
@@ -46,7 +49,7 @@ namespace app.Pl.Controllers
 			{
 				return BadRequest();
 			}
-			var department = _departmentRepository.Get(id.Value);
+			var department = _unitOfWork.departmentRepository.Get(id.Value);
 			if (department is null)
 				return NotFound();
             var MapedDepartment = _mapper.Map<Department, DepartmentViewModel>(department);
@@ -59,7 +62,7 @@ namespace app.Pl.Controllers
 		{
 			///if (id is null)
 			///	return BadRequest();
-			///var department = _departmentRepository.Get(id.Value);
+			///var department = _unitOfWork.employeeReopsitory.Get(id.Value);
 			///if (department is null)
 			///	return NotFound();
 			///return View(department);
@@ -77,7 +80,8 @@ namespace app.Pl.Controllers
 				{
                     var MapedDepartment = _mapper.Map<DepartmentViewModel, Department>(departmentVM);
 
-                    _departmentRepository.Update(MapedDepartment);
+                    _unitOfWork.departmentRepository.Update(MapedDepartment);
+					_unitOfWork.Complete();
                     return RedirectToAction(nameof(Index));
                 }
 				catch (Exception ex)
@@ -106,7 +110,8 @@ namespace app.Pl.Controllers
                 {
                     var MapedDepartment = _mapper.Map<DepartmentViewModel, Department>(departmentVM);
 
-                    _departmentRepository.Delete(MapedDepartment);
+                    _unitOfWork.departmentRepository.Delete(MapedDepartment);
+					_unitOfWork.Complete();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)

@@ -9,28 +9,30 @@ namespace app.Pl.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeReopsitory _employeeReopsitory;
-        private readonly IDepartmentRepository _departmentRepository;
-        private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeReopsitory employeeReopsitory ,
-            IDepartmentRepository departmentRepository, IMapper mapper)
+        //private readonly IEmployeeReopsitory _employeeReopsitory;
+        //private readonly IDepartmentRepository _departmentRepository;
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public EmployeeController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _employeeReopsitory = employeeReopsitory;
-            _departmentRepository = departmentRepository;
-           _mapper = mapper;
+            //_employeeReopsitory = employeeReopsitory;
+            //_departmentRepository = departmentRepository;
+            _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index(string SearchName)
         {
             IEnumerable<Employee> employess;
             if (string.IsNullOrEmpty(SearchName)) 
             {
-                 employess = _employeeReopsitory.GetAll();
+                 employess = _unitOfWork.employeeReopsitory.GetAll();
                 
             }
             else
             {
-               employess=  _employeeReopsitory.GetEmpolyeeByName(SearchName);
+               employess=  _unitOfWork.employeeReopsitory.GetEmpolyeeByName(SearchName);
             }
 
                 var MapedEmp = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeViewModel>>(employess);
@@ -39,7 +41,7 @@ namespace app.Pl.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-          ViewBag.Departments= _departmentRepository.GetAll();
+          ViewBag.Departments= _unitOfWork.departmentRepository.GetAll();
             return View();
 
         }
@@ -58,7 +60,8 @@ namespace app.Pl.Controllers
                 ///};
 
                 var mapedEmp = _mapper.Map<EmployeeViewModel,Employee>(employeeVM);
-                _employeeReopsitory.Add(mapedEmp);
+                _unitOfWork.employeeReopsitory.Add(mapedEmp);
+                _unitOfWork.Complete();
                 return RedirectToAction(nameof(Index));
 
             }
@@ -71,7 +74,7 @@ namespace app.Pl.Controllers
             {
                 return BadRequest();
             }
-            var employee = _employeeReopsitory.Get(id.Value);
+            var employee = _unitOfWork.employeeReopsitory.Get(id.Value);
             if (employee is null)
                 return NotFound();
                 var mapedEmp = _mapper.Map<Employee, EmployeeViewModel>(employee);
@@ -81,7 +84,7 @@ namespace app.Pl.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            ViewBag.Departments = _departmentRepository.GetAll();
+            ViewBag.Departments = _unitOfWork.departmentRepository.GetAll();
 
 
             return Details(id, "Edit");
@@ -97,7 +100,8 @@ namespace app.Pl.Controllers
                 try
                 {
                     var mapedEmp =_mapper.Map<EmployeeViewModel,Employee>(employeeVM);
-                    _employeeReopsitory.Update(mapedEmp);
+                    _unitOfWork.employeeReopsitory.Update(mapedEmp);
+                    _unitOfWork.Complete();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
@@ -125,7 +129,8 @@ namespace app.Pl.Controllers
                 try
                 {
                     var mapedEmp = _mapper.Map<EmployeeViewModel, Employee>(employeeVm);
-                    _employeeReopsitory.Delete(mapedEmp);
+                    _unitOfWork.employeeReopsitory.Delete(mapedEmp);
+                    _unitOfWork.Complete();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)

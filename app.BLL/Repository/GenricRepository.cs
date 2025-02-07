@@ -18,16 +18,14 @@ namespace app.BLL.Repository
         {
             _context = context;
         }
-        public int Add(T item)
+        public void Add(T item)
         {
             _context.Set<T>().Add(item);
-            return _context.SaveChanges();
         }
 
-        public int Delete(T item)
+        public void Delete(T item)
         {
             _context.Set<T>().Remove(item);
-            return _context.SaveChanges();
         }
 
         public T Get(int id)
@@ -42,10 +40,9 @@ namespace app.BLL.Repository
         }
         
 
-        public int Update(T item)
+        public void Update(T item)
         {
             _context.Set<T>().Update(item);
-            return _context.SaveChanges();
         }
     }
 }
